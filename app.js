@@ -1,12 +1,128 @@
-let productos = [];
-
-fetch("./js/productos.json")
-    .then(response => response.json())
-    .then(data => {
-        productos = data;
-        cargarProductos(productos);
-    })
-
+const productos= [ 
+    //  CAMPERAS  ///
+    {
+        id:"campera-1",
+        titulo: "campera 1",
+        imagen: "./IMG/camperas/campera1.jpg",
+        categoria:{
+            nombre:"Camperas",
+            id:"camperas"
+        },
+        precio: 1000
+    },
+    {
+        id:"campera-2",
+        titulo: "campera 2",
+        imagen: "./IMG/camperas/campera2.jpg",
+        categoria:{
+            nombre:"Campera",
+            id:"camperas"
+        },
+        precio: 1500
+    },
+    {
+        id:"campera-3",
+        titulo:"campera 3",
+        imagen:"/IMG/camperas/campera3.jpg",
+        categoria:{
+            nombre:"Camperas",
+            id:"camperas"
+        },
+        precio: 2000
+    },
+    {
+        id:"campera-4",
+        titulo:"campera 4",
+        imagen:"/IMG/camperas/campera4.jpg",
+        categoria:{
+            nombre:"Camperas",
+            id:"camperas"
+        },
+        precio: 2500
+    },
+    // BUZOS  ///
+    {
+        id:"buzp-1",
+        titulo: "buzo 1",
+        imagen: "./IMG/buzos/buzo1.jpg",
+        categoria:{
+            nombre:"Buzos",
+            id:"buzos"
+        },
+        precio: 1000
+    },
+    {
+        id:"buzp-2",
+        titulo: "buzo 2",
+        imagen: "./IMG/buzos/buzo2.jpg",
+        categoria:{
+            nombre:"Buzos",
+            id:"buzos"
+        },
+        precio: 1500
+    },
+    {
+        id:"buzo-3",
+        titulo:"buzo 3",
+        imagen:"/IMG/buzos/buzo3.jpg",
+        categoria:{
+            nombre:"Buzos",
+            id:"buzos"
+        },
+        precio: 2000
+    },
+    {
+        id:"buzo-4",
+        titulo:"buzo 4",
+        imagen:"/IMG/buzos/buzo4.jpg",
+        categoria:{
+            nombre:"Buzos",
+            id:"buzos"
+        },
+        precio: 2500
+    },
+    // Pantalones ///
+    {
+        id:"pantalon-1",
+        titulo: "pantalon 1",
+        imagen: "./IMG/pantalon/pantalon1.jpg",
+        categoria:{
+            nombre:"Pantalones",
+            id:"pantalones"
+        },
+        precio: 1000
+    },
+    {
+        id:"pantalon-2",
+        titulo: "pantalon 2",
+        imagen: "./IMG/pantalon/pantalon2.jpg",
+        categoria:{
+            nombre:"Pantalones",
+            id:"pantalones"
+        },
+        precio: 1500
+    },
+    {
+        id:"pantalon-3",
+        titulo:"pantalon 3",
+        imagen:"/IMG/pantalon/pantalon3.jpg",
+        categoria:{
+            nombre:"Pantalones",
+            id:"pantalones"
+        },
+        precio: 2000
+    },
+    {
+        id:"pantalon-4",
+        titulo:"pantalon 4",
+        imagen:"/IMG/pantalon/pantalon4.jpg",
+        categoria:{
+            nombre:"Pantalones",
+            id:"pantalones"
+        },
+        precio: 2500
+    },
+];
 
 const contenedorProductos = document.querySelector("#contenedor_producto");
 const botonesCategorias = document.querySelectorAll(".boton_categoria");
@@ -62,7 +178,7 @@ function actualizarBotonesAgregar(){
         botonesAgregar = document.querySelectorAll(".producto-agregar");
 
         botonesAgregar.forEach(boton =>{
-            boton.addEventListener("click", agregarAlCarrito);
+            boton.addEventListener("click", agregrAlCarrito);
 
             }
             );
@@ -71,14 +187,14 @@ let productosEnCarrito;
 
 let productosEnCarritoLS = localStorage.getItem("productos_en_carrito");
 
-if (productosEnCarritoLS) {
+if(productosEnCarritoLS){
     productosEnCarrito = JSON.parse(productosEnCarritoLS);
     actualizarNumerito();
-} else {
+}else{
     productosEnCarrito = [];
 }
 
-function agregarAlCarrito(e){
+function agregrAlCarrito(e){
 
     const idBoton = e.currentTarget.id;
     const productoAgregado = productos.find(productos => productos.id === idBoton);
@@ -95,6 +211,7 @@ function agregarAlCarrito(e){
     localStorage.setItem("productos_en_carrito", JSON.stringify(productosEnCarrito));
 
 }
+
 function actualizarNumerito(){
     let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     numerito.innerText = nuevoNumerito;

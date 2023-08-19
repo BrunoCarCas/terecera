@@ -23,7 +23,7 @@ const productos= [
     {
         id:"campera-3",
         titulo:"campera 3",
-        imagen:"/IMG/camperas/campera3.jpg",
+        imagen:"./IMG/camperas/campera3.jpg",
         categoria:{
             nombre:"Camperas",
             id:"camperas"
@@ -33,7 +33,7 @@ const productos= [
     {
         id:"campera-4",
         titulo:"campera 4",
-        imagen:"/IMG/camperas/campera4.jpg",
+        imagen:"./IMG/camperas/campera4.jpg",
         categoria:{
             nombre:"Camperas",
             id:"camperas"
@@ -64,7 +64,7 @@ const productos= [
     {
         id:"buzo-3",
         titulo:"buzo 3",
-        imagen:"/IMG/buzos/buzo3.jpg",
+        imagen:"./IMG/buzos/buzo3.jpg",
         categoria:{
             nombre:"Buzos",
             id:"buzos"
@@ -74,7 +74,7 @@ const productos= [
     {
         id:"buzo-4",
         titulo:"buzo 4",
-        imagen:"/IMG/buzos/buzo4.jpg",
+        imagen:"./IMG/buzos/buzo4.jpg",
         categoria:{
             nombre:"Buzos",
             id:"buzos"
@@ -105,7 +105,7 @@ const productos= [
     {
         id:"pantalon-3",
         titulo:"pantalon 3",
-        imagen:"/IMG/pantalon/pantalon3.jpg",
+        imagen:"./IMG/pantalon/pantalon3.jpg",
         categoria:{
             nombre:"Pantalones",
             id:"pantalones"
@@ -115,7 +115,7 @@ const productos= [
     {
         id:"pantalon-4",
         titulo:"pantalon 4",
-        imagen:"/IMG/pantalon/pantalon4.jpg",
+        imagen:"./IMG/pantalon/pantalon4.jpg",
         categoria:{
             nombre:"Pantalones",
             id:"pantalones"

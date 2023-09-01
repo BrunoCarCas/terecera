@@ -1,128 +1,11 @@
-const productos = [ 
-    //  CAMPERAS  ///
-    {
-        id:"campera-1",
-        titulo: "campera 1",
-        imagen: "./IMG/camperas/campera1.jpg",
-        categoria:{
-            nombre:"Camperas",
-            id:"camperas"
-        },
-        precio: 1000
-    },
-    {
-        id:"campera-2",
-        titulo: "campera 2",
-        imagen: "./IMG/camperas/campera2.jpg",
-        categoria:{
-            nombre:"Campera",
-            id:"camperas"
-        },
-        precio: 1500
-    },
-    {
-        id:"campera-3",
-        titulo:"campera 3",
-        imagen:"/IMG/camperas/campera3.jpg",
-        categoria:{
-            nombre:"Camperas",
-            id:"camperas"
-        },
-        precio: 2000
-    },
-    {
-        id:"campera-4",
-        titulo:"campera 4",
-        imagen:"/IMG/camperas/campera4.jpg",
-        categoria:{
-            nombre:"Camperas",
-            id:"camperas"
-        },
-        precio: 2500
-    },
-    // BUZOS  ///
-    {
-        id:"buzp-1",
-        titulo: "buzo 1",
-        imagen: "./IMG/buzos/buzo1.jpg",
-        categoria:{
-            nombre:"Buzos",
-            id:"buzos"
-        },
-        precio: 1000
-    },
-    {
-        id:"buzp-2",
-        titulo: "buzo 2",
-        imagen: "./IMG/buzos/buzo2.jpg",
-        categoria:{
-            nombre:"Buzos",
-            id:"buzos"
-        },
-        precio: 1500
-    },
-    {
-        id:"buzo-3",
-        titulo:"buzo 3",
-        imagen:"/IMG/buzos/buzo3.jpg",
-        categoria:{
-            nombre:"Buzos",
-            id:"buzos"
-        },
-        precio: 2000
-    },
-    {
-        id:"buzo-4",
-        titulo:"buzo 4",
-        imagen:"/IMG/buzos/buzo4.jpg",
-        categoria:{
-            nombre:"Buzos",
-            id:"buzos"
-        },
-        precio: 2500
-    },
-    // Pantalones ///
-    {
-        id:"pantalon-1",
-        titulo: "pantalon 1",
-        imagen: "./IMG/pantalon/pantalon1.jpg",
-        categoria:{
-            nombre:"Pantalones",
-            id:"pantalones"
-        },
-        precio: 1000
-    },
-    {
-        id:"pantalon-2",
-        titulo: "pantalon 2",
-        imagen: "./IMG/pantalon/pantalon2.jpg",
-        categoria:{
-            nombre:"Pantalones",
-            id:"pantalones"
-        },
-        precio: 1500
-    },
-    {
-        id:"pantalon-3",
-        titulo:"pantalon 3",
-        imagen:"/IMG/pantalon/pantalon3.jpg",
-        categoria:{
-            nombre:"Pantalones",
-            id:"pantalones"
-        },
-        precio: 2000
-    },
-    {
-        id:"pantalon-4",
-        titulo:"pantalon 4",
-        imagen:"/IMG/pantalon/pantalon4.jpg",
-        categoria:{
-            nombre:"Pantalones",
-            id:"pantalones"
-        },
-        precio: 2500
-    },
-];
+let productos = [];
+
+fetch("./productos.json")
+    .then (response => response.json())
+    .then (data => {
+        productos = data;
+        cargarProductos (productos);
+    })
 
 const contenedorProductos = document.querySelector("#contenedor_producto");
 const botonesCategorias = document.querySelectorAll(".boton_categoria");
@@ -185,9 +68,10 @@ function actualizarBotonesAgregar(){
 }
 let productosEnCarrito;
 
-const productosEnCarritoLS = JSON.parse(localStorage.getItem("productos_en_carrito"));
+let productosEnCarritoLS = localStorage.getItem("productos_en_carrito");
+
 if(productosEnCarritoLS){
-    productosEnCarrito = productosEnCarritoLS;
+    productosEnCarrito = JSON.parse(productosEnCarritoLS);
     actualizarNumerito();
 }else{
     productosEnCarrito = [];
@@ -195,24 +79,39 @@ if(productosEnCarritoLS){
 
 function agregrAlCarrito(e){
 
+    Toastify({
+        text: "Producto al carrito",
+        duration: 3000,
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "linear-gradient(to right, #33bbb4, #0B7A75)",
+            borderRadius: "1rem",
+            color: "black",
+        },
+        onClick: function(){} // Callback after click
+        }).showToast();
+
     const idBoton = e.currentTarget.id;
     const productoAgregado = productos.find(productos => productos.id === idBoton);
 
-    if(producotosEnCarrito.some(producto => producto.id === idBoton)){
-        const index = producotosEnCarrito.findIndex(producto => producto.id === idBoton);
-        producotosEnCarrito[index].cantidad++;
+    if(productosEnCarrito.some(producto => producto.id === idBoton)){
+        const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
+        productosEnCarrito[index].cantidad++;
     }else{
         productoAgregado.cantidad = 1;
-        producotosEnCarrito.push(productoAgregado);
+        productosEnCarrito.push(productoAgregado);
     }
     actualizarNumerito();
 
-    localStorage.setItem("productos_en_carrito", JSON.stringify(producotosEnCarrito));
+    localStorage.setItem("productos_en_carrito", JSON.stringify(productosEnCarrito));
 
 }
 
 function actualizarNumerito(){
-    let nuevoNumerito = producotosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     numerito.innerText = nuevoNumerito;
 }
 
